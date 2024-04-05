@@ -8,21 +8,22 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-export const SearchInput = () => {
+export const SearchInput = ({handleSearch}: any) => {
   const [enteredSearch, setEnteredSearch] = useState('');
 
   const searchInputHandler = (enteredText: string) => {
     setEnteredSearch(enteredText);
   };
 
-  const handleSearch = () => {
+  const handleButton = () => {
     console.log(enteredSearch);
+    handleSearch();
   };
 
   return (
     <View style={styles.container}>
       <View>
-        <Pressable onPress={handleSearch}>
+        <Pressable onPress={handleButton}>
           <Image
             style={styles.icon}
             source={require('../icons/search-icon.png')}

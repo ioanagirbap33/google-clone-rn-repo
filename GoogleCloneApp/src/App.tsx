@@ -1,14 +1,24 @@
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
-import {Home} from './screens/Home';
+import {HomeScreen} from './screens/HomeScreen';
+import {NavigationContainer} from '@react-navigation/native';
+import {NativeStackNavigationConfig} from 'react-native-screens/lib/typescript/native-stack/types';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {SearchScreen} from './screens/SearchScreen';
+
+const Stack = createNativeStackNavigator();
 
 const App = (): React.JSX.Element => {
   return (
     <SafeAreaView style={styles.wrapper}>
       <StatusBar />
 
-      <View>
-        <Home />
-      </View>
+      <NavigationContainer>
+        {/* <Home /> */}
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Search" component={SearchScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </SafeAreaView>
   );
 };

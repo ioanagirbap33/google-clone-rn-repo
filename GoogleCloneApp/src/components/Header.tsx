@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 
 export const Header = () => {
-  const [selectedButton, setSelectedButton] = useState('');
+  const [selectedButton, setSelectedButton] = useState('all');
 
   const handleButtonPress = (buttonType: string) => {
     setSelectedButton(buttonType);

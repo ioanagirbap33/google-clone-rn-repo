@@ -1,9 +1,16 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
-export const Home = () => {
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+
+// type Props = NativeStackScreenProps<RootStackParamList, 'Profile', 'MyStack'>;
+
+export const HomeScreen = ({navigation}: any) => {
+  const handleSearch = () => {
+    navigation.navigate('Search');
+  };
   return (
-    <View>
+    <View style={styles.wrapper}>
       <Header />
       <View style={styles.container}>
         <Image
@@ -12,13 +19,17 @@ export const Home = () => {
             uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
           }}
         />
-        <SearchInput />
+        <SearchInput handleSearch={handleSearch} />
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    backgroundColor: '#5f5f5f',
+  },
   container: {
     alignItems: 'center',
   },
