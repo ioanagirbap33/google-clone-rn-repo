@@ -45,7 +45,8 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    padding: 20,
+    padding: 10,
+    marginHorizontal: 10,
     marginBottom: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',

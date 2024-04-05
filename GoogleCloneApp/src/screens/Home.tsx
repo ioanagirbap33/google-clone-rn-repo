@@ -1,5 +1,6 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header} from '../components/Header';
+import {SearchInput} from '../components/SearchInput';
 export const Home = () => {
   return (
     <View>
@@ -11,7 +12,7 @@ export const Home = () => {
             uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
           }}
         />
-        <Text>Search</Text>
+        <SearchInput />
       </View>
     </View>
   );
