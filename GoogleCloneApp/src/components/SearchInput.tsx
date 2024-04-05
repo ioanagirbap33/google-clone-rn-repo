@@ -1,15 +1,39 @@
-import {StyleSheet, Image, TextInput, View} from 'react-native';
+import {useState} from 'react';
+import {
+  StyleSheet,
+  Image,
+  TextInput,
+  View,
+  Pressable,
+  KeyboardAvoidingView,
+} from 'react-native';
 
 export const SearchInput = () => {
+  const [enteredSearch, setEnteredSearch] = useState('');
+
+  const searchInputHandler = (enteredText: string) => {
+    setEnteredSearch(enteredText);
+  };
+
+  const handleSearch = () => {
+    console.log(enteredSearch);
+  };
+
   return (
     <View style={styles.container}>
       <View>
-        <Image
-          style={styles.icon}
-          source={require('../icons/search-icon.png')}
-        />
+        <Pressable onPress={handleSearch}>
+          <Image
+            style={styles.icon}
+            source={require('../icons/search-icon.png')}
+          />
+        </Pressable>
       </View>
-      <TextInput style={styles.input} />
+      <TextInput
+        style={styles.input}
+        onChangeText={searchInputHandler}
+        value={enteredSearch}
+      />
     </View>
   );
 };
@@ -34,7 +58,6 @@ const styles = StyleSheet.create({
   icon: {
     width: 20,
     height: 20,
-    // position: 'absolute',
     left: 10,
   },
 });
