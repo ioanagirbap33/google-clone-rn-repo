@@ -4,8 +4,15 @@ import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
 import {useFocusEffect} from '@react-navigation/native';
 import {Colors} from '../utils/Colors';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../App';
 
-export const HomeScreen = () => {
+type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
+
+export const HomeScreen = ({navigation}: NavigationProps) => {
   const [enteredSearch, setEnteredSearch] = useState('');
 
   const searchInputHandler = (enteredText: string) => {
@@ -17,7 +24,18 @@ export const HomeScreen = () => {
       setEnteredSearch('');
     }, []),
   );
-
+  const handleSearch = () => {
+    const normalizedSearch = enteredSearch?.replace(/\s+/g, ' ').trim();
+    if (normalizedSearch !== '') {
+      (
+        navigation as unknown as NativeStackNavigationProp<
+          RootStackParamList,
+          'Search',
+          undefined
+        >
+      ).navigate('Search', {userSearch: normalizedSearch});
+    }
+  };
   return (
     <View style={styles.wrapper}>
       <Header />
@@ -32,6 +50,7 @@ export const HomeScreen = () => {
         <SearchInput
           enteredValue={enteredSearch}
           onChange={searchInputHandler}
+          handleSearch={handleSearch}
         />
       </View>
     </View>

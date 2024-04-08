@@ -1,11 +1,7 @@
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {HomeScreen} from './screens/HomeScreen';
-import {NavigationContainer, RouteProp} from '@react-navigation/native';
-import {NativeStackNavigationConfig} from 'react-native-screens/lib/typescript/native-stack/types';
-import {
-  NativeStackNavigationProp,
-  createNativeStackNavigator,
-} from '@react-navigation/native-stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {SearchScreen} from './screens/SearchScreen';
 import {Colors} from './utils/Colors';
 

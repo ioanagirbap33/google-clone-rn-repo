@@ -1,15 +1,26 @@
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import {RootStackParamList} from '../App';
 import {SearchInput} from '../components/SearchInput';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {Filters} from '../components/Filters';
+import firestore from '@react-native-firebase/firestore';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
+type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
-export const SearchScreen = ({route, navigation}: Props) => {
+type ResultProps = {
+  search: string;
+  results: string[];
+  id: string;
+};
+
+export const SearchScreen = ({route, navigation}: NavigationProps) => {
   const searchResult = route.params.userSearch;
   const [enteredSearch, setEnteredSearch] = useState(searchResult);
+  const [result, setResult] = useState<ResultProps[]>([]);
 
   const searchInputHandler = (enteredText: string) => {
     setEnteredSearch(enteredText);
@@ -17,6 +28,39 @@ export const SearchScreen = ({route, navigation}: Props) => {
 
   const handleClick = () => {
     navigation.navigate('Home');
+  };
+
+  const fetchData = async () => {
+    try {
+      const querySnapshot = await firestore()
+        .collection('SearchResult')
+        .where('search', '==', enteredSearch?.toLowerCase())
+        .get();
+
+      const resultSaved: ResultProps[] = [];
+      querySnapshot.forEach(doc => {
+        const data = doc.data();
+        resultSaved.push({
+          search: data.search,
+          results: data.results,
+          id: data.id,
+        });
+      });
+      setResult(resultSaved);
+      console.log(result);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const handleSearch = () => {
+    const normalizedSearch = enteredSearch?.replace(/\s+/g, ' ').trim();
+    if (normalizedSearch !== '') {
+      fetchData();
+    }
   };
 
   return (
@@ -33,12 +77,26 @@ export const SearchScreen = ({route, navigation}: Props) => {
         <SearchInput
           enteredValue={enteredSearch}
           onChange={searchInputHandler}
+          handleSearch={handleSearch}
         />
 
         <Filters />
       </View>
 
-      <Text>Search page: {searchResult}</Text>
+      {/* <Text style={styles.text}>Search page: {searchResult}</Text> */}
+      <View>
+        {result.length > 0 ? (
+          result.map(r => (
+            <View key={r.id}>
+              {r.results.map((item, index) => (
+                <Text key={index}>{item}</Text>
+              ))}
+            </View>
+          ))
+        ) : (
+          <Text style={styles.text}>No result found</Text>
+        )}
+      </View>
     </View>
   );
 };
@@ -62,5 +120,9 @@ const styles = StyleSheet.create({
     width: 100,
     height: 40,
     resizeMode: 'contain',
+  },
+  text: {
+    color: 'white',
+    paddingLeft: 10,
   },
 });
