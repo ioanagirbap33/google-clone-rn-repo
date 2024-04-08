@@ -12,14 +12,8 @@ import {SearchScreen} from './screens/SearchScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Search: {userSearch: string};
+  Search: {userSearch?: string};
 };
-
-// type HomeScreenNavigationProp = NativeStackNavigationProp<
-//   RootStackParamList,
-//   'Home'
-// >;
-// type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,11 +24,16 @@ const App = (): React.JSX.Element => {
 
       <NavigationContainer>
         <Stack.Navigator>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
           <Stack.Screen
             name="Search"
             component={SearchScreen}
             initialParams={{userSearch: ''}}
+            options={{headerShown: false}}
           />
         </Stack.Navigator>
       </NavigationContainer>

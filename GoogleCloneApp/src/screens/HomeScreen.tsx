@@ -14,13 +14,6 @@ export const HomeScreen = ({navigation}: Props) => {
     setEnteredSearch(enteredText);
   };
 
-  const handleSearch = () => {
-    // navigation.replace('Search');
-    const normalizedSearch = enteredSearch.replace(/\s+/g, ' ').trim();
-    if (normalizedSearch !== '') {
-      navigation.navigate('Search', {userSearch: normalizedSearch});
-    }
-  };
   return (
     <View style={styles.wrapper}>
       <Header />
@@ -31,8 +24,8 @@ export const HomeScreen = ({navigation}: Props) => {
             uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
           }}
         />
+
         <SearchInput
-          handleSearch={handleSearch}
           enteredValue={enteredSearch}
           onChange={searchInputHandler}
         />
@@ -48,6 +41,8 @@ const styles = StyleSheet.create({
   },
   container: {
     alignItems: 'center',
+    gap: 30,
+    paddingHorizontal: 40,
   },
   header: {
     padding: 20,
