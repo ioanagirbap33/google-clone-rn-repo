@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Image, Pressable} from 'react-native';
 import {RootStackParamList} from '../App';
 import {SearchInput} from '../components/SearchInput';
 import {useState} from 'react';
+import {Filters} from '../components/Filters';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
@@ -33,7 +34,10 @@ export const SearchScreen = ({route, navigation}: Props) => {
           enteredValue={enteredSearch}
           onChange={searchInputHandler}
         />
+
+        <Filters />
       </View>
+
       <Text>Search page: {searchResult}</Text>
     </View>
   );
@@ -42,7 +46,7 @@ export const SearchScreen = ({route, navigation}: Props) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#5f5f5f',
+    backgroundColor: '#424242',
     padding: 10,
   },
   container: {

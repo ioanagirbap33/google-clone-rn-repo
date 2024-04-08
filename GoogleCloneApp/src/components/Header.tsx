@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
 
   selectedButton: {
     borderBottomWidth: 1,
-    borderColor: 'white', // sau culoarea dorită pentru bordură
+    borderColor: 'white',
   },
   icon: {
     width: 25,

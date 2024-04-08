@@ -2,9 +2,8 @@ import {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {RootStackParamList} from '../App';
 import {useFocusEffect} from '@react-navigation/native';
+import {Colors} from '../utils/Colors';
 
 export const HomeScreen = () => {
   const [enteredSearch, setEnteredSearch] = useState('');
@@ -42,7 +41,7 @@ export const HomeScreen = () => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#5f5f5f',
+    backgroundColor: Colors.background,
   },
   container: {
     alignItems: 'center',

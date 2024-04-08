@@ -7,6 +7,7 @@ import {
   createNativeStackNavigator,
 } from '@react-navigation/native-stack';
 import {SearchScreen} from './screens/SearchScreen';
+import {Colors} from './utils/Colors';
 
 // const Stack = createNativeStackNavigator();
 
@@ -44,7 +45,7 @@ const App = (): React.JSX.Element => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#5f5f5f',
+    backgroundColor: Colors.background,
   },
 });
 
