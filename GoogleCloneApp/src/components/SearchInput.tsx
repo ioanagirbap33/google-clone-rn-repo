@@ -9,11 +9,7 @@ export type SearchInputProps = {
   enteredValue?: string;
 };
 
-export const SearchInput = ({
-  // handleSearch,
-  enteredValue,
-  onChange,
-}: SearchInputProps) => {
+export const SearchInput = ({enteredValue, onChange}: SearchInputProps) => {
   const navigation = useNavigation();
 
   const handleSearch = () => {

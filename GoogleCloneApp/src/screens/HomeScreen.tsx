@@ -1,18 +1,23 @@
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
+import {useFocusEffect} from '@react-navigation/native';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
-
-export const HomeScreen = ({navigation}: Props) => {
+export const HomeScreen = () => {
   const [enteredSearch, setEnteredSearch] = useState('');
 
   const searchInputHandler = (enteredText: string) => {
     setEnteredSearch(enteredText);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      setEnteredSearch('');
+    }, []),
+  );
 
   return (
     <View style={styles.wrapper}>
