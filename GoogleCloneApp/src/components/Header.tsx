@@ -2,7 +2,7 @@ import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 
 export const Header = () => {
-  const [selectedButton, setSelectedButton] = useState('');
+  const [selectedButton, setSelectedButton] = useState('all');
 
   const handleButtonPress = (buttonType: string) => {
     setSelectedButton(buttonType);
@@ -45,7 +45,8 @@ export const Header = () => {
 
 const styles = StyleSheet.create({
   header: {
-    padding: 20,
+    padding: 10,
+    marginHorizontal: 10,
     marginBottom: 50,
     flexDirection: 'row',
     justifyContent: 'space-between',
