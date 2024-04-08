@@ -1,8 +1,7 @@
 import {useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../utils/Colors';
 
-export const Filters = ({filterName}: any) => {
+export const Filters = () => {
   const [selectedButton, setSelectedButton] = useState('all');
 
   const handleButtonPress = (buttonType: string) => {
@@ -39,7 +38,7 @@ const styles = StyleSheet.create({
     padding: 3,
   },
   selectedButton: {
-    backgroundColor: '#3b6499',
+    backgroundColor: '#4570a8',
     borderRadius: 7,
     // borderColor: 'white',
     // borderWidth: 0.5,

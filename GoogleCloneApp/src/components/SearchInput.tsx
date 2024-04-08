@@ -16,18 +16,6 @@ export const SearchInput = ({
 }: SearchInputProps) => {
   const navigation = useNavigation();
 
-  // const handleSearch = () => {
-  //   const normalizedSearch = enteredValue?.replace(/\s+/g, ' ').trim();
-  //   if (normalizedSearch !== '') {
-  //     (
-  //       navigation as unknown as NativeStackNavigationProp<
-  //         RootStackParamList,
-  //         'Search',
-  //         undefined
-  //       >
-  //     ).navigate('Search', {userSearch: normalizedSearch});
-  //   }
-  // };
   return (
     <View style={styles.container}>
       <View>
