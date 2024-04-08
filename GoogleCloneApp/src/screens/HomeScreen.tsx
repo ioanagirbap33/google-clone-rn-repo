@@ -2,12 +2,15 @@ import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {RootStackParamList} from '../App';
 
-// type Props = NativeStackScreenProps<RootStackParamList, 'Profile', 'MyStack'>;
+// type Props = NativeStackScreenProps<RootStackParamList, 'Search'>;
+type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export const HomeScreen = ({navigation}: any) => {
+export const HomeScreen = ({navigation}: Props) => {
   const handleSearch = () => {
-    navigation.navigate('Search');
+    // navigation.replace('Search');
+    navigation.navigate('Search', {searchResult: 'cat'});
   };
   return (
     <View style={styles.wrapper}>

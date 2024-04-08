@@ -1,11 +1,27 @@
 import {SafeAreaView, StatusBar, StyleSheet, Text, View} from 'react-native';
 import {HomeScreen} from './screens/HomeScreen';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, RouteProp} from '@react-navigation/native';
 import {NativeStackNavigationConfig} from 'react-native-screens/lib/typescript/native-stack/types';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {
+  NativeStackNavigationProp,
+  createNativeStackNavigator,
+} from '@react-navigation/native-stack';
 import {SearchScreen} from './screens/SearchScreen';
 
-const Stack = createNativeStackNavigator();
+// const Stack = createNativeStackNavigator();
+
+export type RootStackParamList = {
+  Home: undefined;
+  Search: {searchResult: string};
+};
+
+// type HomeScreenNavigationProp = NativeStackNavigationProp<
+//   RootStackParamList,
+//   'Home'
+// >;
+// type SearchScreenRouteProp = RouteProp<RootStackParamList, 'Search'>;
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = (): React.JSX.Element => {
   return (
@@ -13,10 +29,13 @@ const App = (): React.JSX.Element => {
       <StatusBar />
 
       <NavigationContainer>
-        {/* <Home /> */}
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} />
-          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen
+            name="Search"
+            component={SearchScreen}
+            initialParams={{searchResult: ''}}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaView>
