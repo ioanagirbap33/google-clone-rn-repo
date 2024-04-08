@@ -3,7 +3,7 @@ import {Pressable, StyleSheet, Text, View} from 'react-native';
 import {Colors} from '../utils/Colors';
 
 export const Filters = ({filterName}: any) => {
-  const [selectedButton, setSelectedButton] = useState('overview');
+  const [selectedButton, setSelectedButton] = useState('all');
 
   const handleButtonPress = (buttonType: string) => {
     setSelectedButton(buttonType);
@@ -12,9 +12,9 @@ export const Filters = ({filterName}: any) => {
   return (
     <View style={styles.filterContainer}>
       <Pressable
-        style={() => selectedButton === 'overview' && styles.selectedButton}
-        onPress={() => handleButtonPress('overview')}>
-        <Text style={styles.text}>Overview</Text>
+        style={() => selectedButton === 'all' && styles.selectedButton}
+        onPress={() => handleButtonPress('all')}>
+        <Text style={styles.text}>All</Text>
       </Pressable>
 
       <Pressable
@@ -36,13 +36,13 @@ const styles = StyleSheet.create({
   text: {
     color: 'white',
     fontSize: 14,
-    padding: 5,
+    padding: 3,
   },
   selectedButton: {
-    backgroundColor: Colors.primary,
-    borderRadius: 20,
-    borderColor: 'white',
-    borderWidth: 0.5,
+    backgroundColor: '#3b6499',
+    borderRadius: 7,
+    // borderColor: 'white',
+    // borderWidth: 0.5,
   },
   filterContainer: {
     flexDirection: 'row',

@@ -52,7 +52,10 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     marginVertical: 20,
+    paddingBottom: 10,
     gap: 5,
+    // borderBottomWidth: 1,
+    // borderBottomColor: '	#a9a9a9',
   },
 
   image: {
