@@ -12,7 +12,7 @@ import {SearchScreen} from './screens/SearchScreen';
 
 export type RootStackParamList = {
   Home: undefined;
-  Search: {searchResult: string};
+  Search: {userSearch: string};
 };
 
 // type HomeScreenNavigationProp = NativeStackNavigationProp<
@@ -34,7 +34,7 @@ const App = (): React.JSX.Element => {
           <Stack.Screen
             name="Search"
             component={SearchScreen}
-            initialParams={{searchResult: ''}}
+            initialParams={{userSearch: ''}}
           />
         </Stack.Navigator>
       </NavigationContainer>
