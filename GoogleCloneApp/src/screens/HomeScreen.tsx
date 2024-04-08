@@ -16,7 +16,10 @@ export const HomeScreen = ({navigation}: Props) => {
 
   const handleSearch = () => {
     // navigation.replace('Search');
-    navigation.navigate('Search', {userSearch: enteredSearch});
+    const normalizedSearch = enteredSearch.replace(/\s+/g, ' ').trim();
+    if (normalizedSearch !== '') {
+      navigation.navigate('Search', {userSearch: normalizedSearch});
+    }
   };
   return (
     <View style={styles.wrapper}>
