@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {Colors} from '../utils/Colors';
 
 export const Filters = () => {
   const [selectedButton, setSelectedButton] = useState('all');
@@ -34,11 +35,11 @@ export const Filters = () => {
 const styles = StyleSheet.create({
   text: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 16,
     padding: 3,
   },
   selectedButton: {
-    backgroundColor: '#4570a8',
+    backgroundColor: Colors.button,
     borderRadius: 7,
     // borderColor: 'white',
     // borderWidth: 0.5,

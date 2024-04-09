@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'white',
+    borderColor: '#807b7b',
     borderRadius: 20,
     marginTop: 0,
   },
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     padding: 7,
     width: '100%',
     color: 'white',
-    fontSize: 16,
+    fontSize: 20,
   },
   icon: {
     width: 20,

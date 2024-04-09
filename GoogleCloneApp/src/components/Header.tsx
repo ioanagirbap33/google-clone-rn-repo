@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import {Button} from './Button';
 
 export const Header = () => {
   const [selectedButton, setSelectedButton] = useState('all');
@@ -25,18 +26,19 @@ export const Header = () => {
           </Pressable>
         </View>
         <View style={styles.headerSides}>
-          <Image
+          {/* <Image
             style={styles.icon}
             source={require('../icons/notifications-icon.png')}
-          />
+          /> */}
           <Image
             style={styles.icon}
             source={require('../icons/menu-icon.png')}
           />
-          <Image
+          <Button title="Sign in" />
+          {/* <Image
             style={styles.icon}
             source={require('../icons/user-icon.png')}
-          />
+          /> */}
         </View>
       </View>
     </View>
@@ -55,6 +57,7 @@ const styles = StyleSheet.create({
   headerSides: {
     flexDirection: 'row',
     gap: 20,
+    alignItems: 'center',
   },
   text: {
     color: 'white',

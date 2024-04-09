@@ -1,7 +1,4 @@
-import {
-  NativeStackNavigationProp,
-  NativeStackScreenProps,
-} from '@react-navigation/native-stack';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   View,
   Text,
@@ -17,6 +14,7 @@ import {useEffect, useState} from 'react';
 import {Filters} from '../components/Filters';
 import firestore from '@react-native-firebase/firestore';
 import {Colors} from '../utils/Colors';
+import {Button} from '../components/Button';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
@@ -34,6 +32,8 @@ type ResultProps = {
 export const SearchScreen = ({route, navigation}: NavigationProps) => {
   const searchResult = route.params.userSearch;
   const [enteredSearch, setEnteredSearch] = useState(searchResult);
+  const [enteredAfterSearch, setEnteredAfterSearch] = useState(searchResult);
+
   const [result, setResult] = useState<ResultProps[]>([]);
 
   const searchInputHandler = (enteredText: string) => {
@@ -48,7 +48,7 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
     try {
       const querySnapshot = await firestore()
         .collection('SearchResult')
-        .where('search', '==', enteredSearch?.toLowerCase())
+        // .where('search', '==', enteredSearch?.toLowerCase())
         .get();
 
       const resultSaved: ResultProps[] = [];
@@ -71,7 +71,8 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
   }, []);
 
   const handleSearch = () => {
-    const normalizedSearch = enteredSearch?.replace(/\s+/g, ' ').trim();
+    setEnteredAfterSearch(enteredSearch);
+    const normalizedSearch = enteredAfterSearch?.replace(/\s+/g, ' ').trim();
     if (normalizedSearch !== '') {
       fetchData();
     }
@@ -92,14 +93,15 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
             </Pressable>
           </View>
           <View style={styles.icons}>
-            <Image
+            {/* <Image
               style={styles.icon}
               source={require('../icons/notifications-icon.png')}
             />
             <Image
               style={styles.icon}
               source={require('../icons/user-icon.png')}
-            />
+            /> */}
+            <Button title="Sign In" />
           </View>
         </View>
         <View style={styles.inputContainer}>
@@ -113,17 +115,21 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
         <Filters />
       </View>
 
-      <View style={styles.resultsContainer}>
-        {result.length > 0 ? (
+      <View>
+        {result.some(r =>
+          r.search.includes(enteredAfterSearch!.toLowerCase()),
+        ) ? (
           <FlatList
-            data={result}
+            data={result.filter(r =>
+              r.search.includes(enteredAfterSearch!.toLowerCase()),
+            )}
             renderItem={({item}) => (
               <View>
                 {item.results.map(({link, title}, index) => (
                   <View style={styles.resultContainer} key={index}>
-                    <Text style={{color: 'white', fontSize: 12}}>{title}</Text>
+                    <Text style={{color: 'white', fontSize: 16}}>{title}</Text>
                     <Text
-                      style={{color: '#4570a8', fontSize: 18}}
+                      style={{color: Colors.button, fontSize: 18}}
                       onPress={() => Linking.openURL(`${link}`)}>
                       {link}
                     </Text>
@@ -131,11 +137,9 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
                 ))}
               </View>
             )}
-            keyExtractor={item => item.id}
-            scrollEnabled={false}
           />
         ) : (
-          <Text style={styles.text}>No result found</Text>
+          <Text style={styles.text}>There are no results for your search.</Text>
         )}
       </View>
     </View>
@@ -145,7 +149,7 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#424242',
+    backgroundColor: Colors.background,
   },
   container: {
     alignItems: 'center',
@@ -153,38 +157,9 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     gap: 5,
     borderBottomWidth: 1,
-    borderBottomColor: '#aeaeae',
+    borderBottomColor: '#4e4949',
     padding: 10,
-  },
-  inputContainer: {
-    shadowColor: '#020202',
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 3,
-  },
-  resultsContainer: {
-    padding: 10,
-    marginLeft: 20,
-  },
-  resultContainer: {
-    marginBottom: 20,
-  },
-
-  image: {
-    width: 100,
-    height: 40,
-    resizeMode: 'contain',
-  },
-  text: {
-    color: 'white',
-    paddingLeft: 10,
-  },
-  icon: {
-    width: 25,
-    height: 25,
+    backgroundColor: Colors.primary,
   },
   header: {
     flexDirection: 'row',
@@ -195,11 +170,43 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
+  image: {
+    width: 100,
+    height: 40,
+    resizeMode: 'contain',
+  },
+  icon: {
+    width: 25,
+    height: 25,
+  },
   icons: {
     alignSelf: 'center',
     flexDirection: 'row',
     position: 'absolute',
     right: 16,
     gap: 10,
+  },
+
+  inputContainer: {
+    shadowColor: '#020202',
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 3,
+  },
+
+  resultContainer: {
+    marginBottom: 10,
+    backgroundColor: Colors.primary,
+    padding: 20,
+    paddingLeft: 20,
+  },
+
+  text: {
+    color: 'white',
+    paddingLeft: 10,
+    fontSize: 16,
   },
 });
