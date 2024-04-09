@@ -1,5 +1,6 @@
 import {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
+
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
 import {useFocusEffect} from '@react-navigation/native';
@@ -36,6 +37,7 @@ export const HomeScreen = ({navigation}: NavigationProps) => {
       ).navigate('Search', {userSearch: normalizedSearch});
     }
   };
+
   return (
     <View style={styles.wrapper}>
       <Header />

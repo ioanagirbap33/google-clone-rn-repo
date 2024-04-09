@@ -1,11 +1,25 @@
 import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {Colors} from '../utils/Colors';
-
-const handleSignIn = () => {
-  console.log('Pressed');
-};
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import auth from '@react-native-firebase/auth';
 
 export const Button = ({title}: any) => {
+  GoogleSignin.configure({
+    webClientId:
+      '797814484120-n0s7cviaqijc55ag1tli75q8o6u354cm.apps.googleusercontent.com',
+  });
+
+  const handleSignIn = async () => {
+    console.log('Pressed');
+    const {idToken} = await GoogleSignin.signIn();
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+    const user_sign_in = auth().signInWithCredential(googleCredential);
+
+    user_sign_in.then(re => {
+      console.log(re.user);
+    });
+  };
+
   return (
     <Pressable
       onPress={handleSignIn}
