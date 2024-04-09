@@ -1,23 +1,43 @@
-import {useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
+
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useFocusEffect} from '@react-navigation/native';
+import {Colors} from '../utils/Colors';
+import {
+  NativeStackNavigationProp,
+  NativeStackScreenProps,
+} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../App';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
+type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
-export const HomeScreen = ({navigation}: Props) => {
+export const HomeScreen = ({navigation}: NavigationProps) => {
   const [enteredSearch, setEnteredSearch] = useState('');
 
   const searchInputHandler = (enteredText: string) => {
     setEnteredSearch(enteredText);
   };
 
+  useFocusEffect(
+    useCallback(() => {
+      setEnteredSearch('');
+    }, []),
+  );
   const handleSearch = () => {
-    // navigation.replace('Search');
-    navigation.navigate('Search', {userSearch: enteredSearch});
+    const normalizedSearch = enteredSearch?.replace(/\s+/g, ' ').trim();
+    if (normalizedSearch !== '') {
+      (
+        navigation as unknown as NativeStackNavigationProp<
+          RootStackParamList,
+          'Search',
+          undefined
+        >
+      ).navigate('Search', {userSearch: normalizedSearch});
+    }
   };
+
   return (
     <View style={styles.wrapper}>
       <Header />
@@ -28,10 +48,11 @@ export const HomeScreen = ({navigation}: Props) => {
             uri: 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png',
           }}
         />
+
         <SearchInput
-          handleSearch={handleSearch}
           enteredValue={enteredSearch}
           onChange={searchInputHandler}
+          handleSearch={handleSearch}
         />
       </View>
     </View>
@@ -41,10 +62,12 @@ export const HomeScreen = ({navigation}: Props) => {
 const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#5f5f5f',
+    backgroundColor: Colors.background,
   },
   container: {
     alignItems: 'center',
+    gap: 30,
+    paddingHorizontal: 40,
   },
   header: {
     padding: 20,
