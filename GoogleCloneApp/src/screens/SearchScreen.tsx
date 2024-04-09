@@ -16,7 +16,7 @@ import {useEffect, useState} from 'react';
 import {Filters} from '../components/Filters';
 import firestore from '@react-native-firebase/firestore';
 import {Colors} from '../utils/Colors';
-import {Button} from '../components/Button';
+import {Profile} from '../components/Profile';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
@@ -95,15 +95,7 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
             </Pressable>
           </View>
           <View style={styles.icons}>
-            {/* <Image
-              style={styles.icon}
-              source={require('../icons/notifications-icon.png')}
-            />
-            <Image
-              style={styles.icon}
-              source={require('../icons/user-icon.png')}
-            /> */}
-            <Button title="Sign In" />
+            <Profile title="Sign In" />
           </View>
         </View>
         <View style={styles.inputContainer}>
