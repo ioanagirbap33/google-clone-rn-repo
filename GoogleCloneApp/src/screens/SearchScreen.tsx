@@ -19,6 +19,7 @@ import {Colors} from '../utils/Colors';
 import {Profile} from '../components/Profile';
 import {AllResults} from '../components/filters/AllResults';
 import {Images} from '../components/filters/Images';
+import {Videos} from '../components/filters/Videos';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
@@ -128,6 +129,7 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
       {selectedFilter === 'images' && (
         <Images result={result} inputValue={enteredAfterSearch} />
       )}
+      {selectedFilter !== 'all' && selectedFilter !== 'images' && <Videos />}
     </View>
   );
 };

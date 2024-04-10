@@ -1,7 +1,6 @@
 import {StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../../utils/Colors';
 
-export const Images = () => {
+export const Videos = () => {
   return (
     <View>
       <Text style={styles.text}>Coming soon...</Text>

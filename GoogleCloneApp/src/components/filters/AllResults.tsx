@@ -14,6 +14,7 @@ export const AllResults = ({result, inputValue}: AllResultsProps) => {
     <View>
       {result.some(r => r.search.includes(inputValue!.toLowerCase())) ? (
         <FlatList
+          style={styles.listContainer}
           data={result.filter(r =>
             r.search.includes(inputValue!.toLowerCase()),
           )}
@@ -51,5 +52,8 @@ const styles = StyleSheet.create({
     color: 'white',
     paddingLeft: 10,
     fontSize: 16,
+  },
+  listContainer: {
+    height: '75%',
   },
 });
