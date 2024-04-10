@@ -1,31 +1,30 @@
 import {useState} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import {Colors} from '../utils/Colors';
+import {Colors} from '../../utils/Colors';
 
-export const Filters = () => {
-  const [selectedButton, setSelectedButton] = useState('all');
+interface FiltersProp {
+  handleFilterPress: (button: string) => void;
+  selectedFilter?: string;
+}
 
-  const handleButtonPress = (buttonType: string) => {
-    setSelectedButton(buttonType);
-  };
-
+export const Filters = ({handleFilterPress, selectedFilter}: FiltersProp) => {
   return (
     <View style={styles.filterContainer}>
       <Pressable
-        style={() => selectedButton === 'all' && styles.selectedButton}
-        onPress={() => handleButtonPress('all')}>
+        style={() => selectedFilter === 'all' && styles.selectedFilter}
+        onPress={() => handleFilterPress('all')}>
         <Text style={styles.text}>All</Text>
       </Pressable>
 
       <Pressable
-        style={() => selectedButton === 'images' && styles.selectedButton}
-        onPress={() => handleButtonPress('images')}>
+        style={() => selectedFilter === 'images' && styles.selectedFilter}
+        onPress={() => handleFilterPress('images')}>
         <Text style={styles.text}>Images</Text>
       </Pressable>
 
       <Pressable
-        style={() => selectedButton === 'videos' && styles.selectedButton}
-        onPress={() => handleButtonPress('videos')}>
+        style={() => selectedFilter === 'videos' && styles.selectedFilter}
+        onPress={() => handleFilterPress('videos')}>
         <Text style={styles.text}>Videos</Text>
       </Pressable>
     </View>
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     padding: 3,
   },
-  selectedButton: {
+  selectedFilter: {
     backgroundColor: Colors.button,
     borderRadius: 7,
     // borderColor: 'white',

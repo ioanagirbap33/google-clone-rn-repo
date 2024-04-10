@@ -13,19 +13,22 @@ import {
 import {RootStackParamList} from '../App';
 import {SearchInput} from '../components/SearchInput';
 import {useEffect, useState} from 'react';
-import {Filters} from '../components/Filters';
+import {Filters} from '../components/filters/Filters';
 import firestore from '@react-native-firebase/firestore';
 import {Colors} from '../utils/Colors';
 import {Profile} from '../components/Profile';
+import {AllResults} from '../components/filters/AllResults';
+import {Images} from '../components/filters/Images';
 
 type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Search'>;
 
-type SearchResultType = {
+export type SearchResultType = {
   link: string;
   title: string;
+  image: string;
 };
 
-type ResultProps = {
+export type ResultProps = {
   search: string;
   results: SearchResultType[];
   id: string;
@@ -33,8 +36,16 @@ type ResultProps = {
 
 export const SearchScreen = ({route, navigation}: NavigationProps) => {
   const searchResult = route.params.userSearch;
+  const filteredResult = route.params.userFilter;
+
   const [enteredSearch, setEnteredSearch] = useState(searchResult);
   const [enteredAfterSearch, setEnteredAfterSearch] = useState(searchResult);
+
+  const [selectedFilter, setSelectedFilter] = useState(filteredResult);
+
+  const handleFilterPress = (filterType: string) => {
+    setSelectedFilter(filterType);
+  };
 
   const [result, setResult] = useState<ResultProps[]>([]);
 
@@ -106,36 +117,17 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
           />
         </View>
 
-        <Filters />
+        <Filters
+          handleFilterPress={handleFilterPress}
+          selectedFilter={selectedFilter}
+        />
       </View>
-
-      <View>
-        {result.some(r =>
-          r.search.includes(enteredAfterSearch!.toLowerCase()),
-        ) ? (
-          <FlatList
-            data={result.filter(r =>
-              r.search.includes(enteredAfterSearch!.toLowerCase()),
-            )}
-            renderItem={({item}) => (
-              <View>
-                {item.results.map(({link, title}, index) => (
-                  <View style={styles.resultContainer} key={index}>
-                    <Text style={{color: 'white', fontSize: 16}}>{title}</Text>
-                    <Text
-                      style={{color: Colors.button, fontSize: 18}}
-                      onPress={() => Linking.openURL(`${link}`)}>
-                      {link}
-                    </Text>
-                  </View>
-                ))}
-              </View>
-            )}
-          />
-        ) : (
-          <Text style={styles.text}>There are no results for your search.</Text>
-        )}
-      </View>
+      {selectedFilter === 'all' && (
+        <AllResults result={result} inputValue={enteredAfterSearch} />
+      )}
+      {selectedFilter === 'images' && (
+        <Images result={result} inputValue={enteredAfterSearch} />
+      )}
     </View>
   );
 };
@@ -189,18 +181,5 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 1,
     shadowRadius: 3,
-  },
-
-  resultContainer: {
-    marginBottom: 10,
-    backgroundColor: Colors.primary,
-    padding: 20,
-    paddingLeft: 20,
-  },
-
-  text: {
-    color: 'white',
-    paddingLeft: 10,
-    fontSize: 16,
   },
 });

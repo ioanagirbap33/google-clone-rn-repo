@@ -1,13 +1,18 @@
 import {useState} from 'react';
-import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
+import {View, Text, StyleSheet, Pressable, Image, Button} from 'react-native';
 import {Profile} from './Profile';
 
-export const Header = () => {
-  const [selectedButton, setSelectedButton] = useState('all');
+interface HeaderProps {
+  selectedButton: string;
+  handleButtonPress: (button: string) => void;
+}
 
-  const handleButtonPress = (buttonType: string) => {
-    setSelectedButton(buttonType);
-  };
+export const Header = ({selectedButton, handleButtonPress}: HeaderProps) => {
+  // const [selectedButton, setSelectedButton] = useState('all');
+
+  // const handleButtonPress = (buttonType: string) => {
+  //   setSelectedButton(buttonType);
+  // };
 
   return (
     <View>
@@ -31,10 +36,6 @@ export const Header = () => {
             source={require('../icons/menu-icon.png')}
           />
           <Profile title="Sign in" />
-          {/* <Image
-            style={styles.icon}
-            source={require('../icons/user-icon.png')}
-          /> */}
         </View>
       </View>
     </View>

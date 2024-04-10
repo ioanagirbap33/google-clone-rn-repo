@@ -7,19 +7,7 @@ import {useAuth} from '../contexts/authContext';
 export const Profile = ({title}: any) => {
   const {userProfilePic, setUserProfilePic, logout, signIn} = useAuth();
 
-  // GoogleSignin.configure({
-  //   webClientId:
-  //     '797814484120-n0s7cviaqijc55ag1tli75q8o6u354cm.apps.googleusercontent.com',
-  // });
-
   const handleSignIn = async () => {
-    // const {idToken} = await GoogleSignin.signIn();
-    // const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    // const user_sign_in = auth().signInWithCredential(googleCredential);
-
-    // user_sign_in.then(re => {
-    //   setUserProfilePic(re.user.photoURL!);
-    // });
     signIn();
   };
 

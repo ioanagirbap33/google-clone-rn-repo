@@ -8,7 +8,7 @@ import {AuthProvider} from './contexts/authContext';
 
 export type RootStackParamList = {
   Home: undefined;
-  Search: {userSearch?: string};
+  Search: {userSearch?: string; userFilter?: string};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
