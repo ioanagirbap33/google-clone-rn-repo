@@ -1,14 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  Linking,
-  FlatList,
-} from 'react-native';
-// import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {View, StyleSheet, Image, Pressable} from 'react-native';
 
 import {RootStackParamList} from '../App';
 import {SearchInput} from '../components/SearchInput';
@@ -60,10 +51,7 @@ export const SearchScreen = ({route, navigation}: NavigationProps) => {
 
   const fetchData = async () => {
     try {
-      const querySnapshot = await firestore()
-        .collection('SearchResult')
-        // .where('search', '==', enteredSearch?.toLowerCase())
-        .get();
+      const querySnapshot = await firestore().collection('SearchResult').get();
 
       const resultSaved: ResultProps[] = [];
       querySnapshot.forEach(doc => {

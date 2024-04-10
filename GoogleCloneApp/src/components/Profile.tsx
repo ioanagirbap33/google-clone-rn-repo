@@ -1,7 +1,5 @@
 import {View, Text, StyleSheet, Pressable, Image} from 'react-native';
 import {Colors} from '../utils/Colors';
-import {GoogleSignin} from '@react-native-google-signin/google-signin';
-import auth from '@react-native-firebase/auth';
 import {useAuth} from '../contexts/authContext';
 
 export const Profile = ({title}: any) => {

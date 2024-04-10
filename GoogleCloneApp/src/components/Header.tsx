@@ -1,4 +1,3 @@
-import {useState} from 'react';
 import {View, Text, StyleSheet, Pressable, Image, Button} from 'react-native';
 import {Profile} from './Profile';
 
@@ -8,12 +7,6 @@ interface HeaderProps {
 }
 
 export const Header = ({selectedButton, handleButtonPress}: HeaderProps) => {
-  // const [selectedButton, setSelectedButton] = useState('all');
-
-  // const handleButtonPress = (buttonType: string) => {
-  //   setSelectedButton(buttonType);
-  // };
-
   return (
     <View>
       <View style={styles.header}>

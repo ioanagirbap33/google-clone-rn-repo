@@ -1,7 +1,5 @@
 import {StyleSheet, Image, TextInput, View, Pressable} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import {RootStackParamList} from '../App';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 
 export type SearchInputProps = {
   handleSearch?: () => void;
