@@ -1,5 +1,5 @@
 import {useCallback, useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Image, StyleSheet} from 'react-native';
 
 import {Header} from '../components/Header';
 import {SearchInput} from '../components/SearchInput';
@@ -15,6 +15,11 @@ type NavigationProps = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
 export const HomeScreen = ({navigation}: NavigationProps) => {
   const [enteredSearch, setEnteredSearch] = useState('');
+  const [selectedButton, setSelectedButton] = useState('all');
+
+  const handleButtonPress = (buttonType: string) => {
+    setSelectedButton(buttonType);
+  };
 
   const searchInputHandler = (enteredText: string) => {
     setEnteredSearch(enteredText);
@@ -34,13 +39,19 @@ export const HomeScreen = ({navigation}: NavigationProps) => {
           'Search',
           undefined
         >
-      ).navigate('Search', {userSearch: normalizedSearch});
+      ).navigate('Search', {
+        userSearch: normalizedSearch,
+        userFilter: selectedButton,
+      });
     }
   };
 
   return (
     <View style={styles.wrapper}>
-      <Header />
+      <Header
+        selectedButton={selectedButton}
+        handleButtonPress={handleButtonPress}
+      />
       <View style={styles.container}>
         <Image
           style={styles.image}
