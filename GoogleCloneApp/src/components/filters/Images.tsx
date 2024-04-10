@@ -5,6 +5,8 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  Pressable,
+  Linking,
 } from 'react-native';
 
 import {ResultProps} from '../../screens/SearchScreen';
@@ -20,32 +22,38 @@ const imageWidth = (width - 60) / 2;
 
 export const Images = ({result, inputValue}: AllResultsProps) => {
   const data = result.filter(r => r.search.includes(inputValue!.toLowerCase()));
-  const dataResult: {image: string; title: string}[] = [];
+  const dataResult: {image: string; title: string; link: string}[] = [];
 
   data.forEach(item => {
     item.results.forEach(result => {
-      dataResult.push({image: result.image, title: result.title});
+      dataResult.push({
+        image: result.image,
+        title: result.title,
+        link: result.link,
+      });
     });
   });
 
   return (
-    <View style={styles.container}>
+    <>
       {
-        <View style={styles.container}>
+        <View>
           {dataResult.length > 0 ? (
             <FlatList
               style={styles.listContainer}
               data={dataResult}
               renderItem={({item}) => (
                 <View style={styles.itemContainer}>
-                  <Image
-                    style={[
-                      styles.image,
-                      {width: imageWidth, height: imageWidth},
-                    ]}
-                    source={{uri: item.image}}
-                  />
-                  <Text style={styles.text}>{item.title}</Text>
+                  <Pressable onPress={() => Linking.openURL(`${item.link}`)}>
+                    <Image
+                      style={[
+                        styles.image,
+                        {width: imageWidth, height: imageWidth},
+                      ]}
+                      source={{uri: item.image}}
+                    />
+                    <Text style={styles.text}>{item.title}</Text>
+                  </Pressable>
                 </View>
               )}
               keyExtractor={(item, index) => index.toString()}
@@ -58,16 +66,11 @@ export const Images = ({result, inputValue}: AllResultsProps) => {
           )}
         </View>
       }
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    // flex: 1,
-    // padding: 10,
-    // backgroundColor: Colors.background,
-  },
   resultContainer: {
     paddingLeft: 20,
   },
